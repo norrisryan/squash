@@ -6,7 +6,6 @@ using AdvancedHMC
 using Pathfinder
 using Statistics
 using LinearAlgebra
-using Printf
 using Random
 
 # Re-export key OITOOLS symbols so users can access them from OIImage
