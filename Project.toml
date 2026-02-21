@@ -1,0 +1,22 @@
+name = "OIImage"
+uuid = "a3e4b9a1-2c3d-4e5f-8a9b-0c1d2e3f4a5b"
+authors = ["OIImage contributors"]
+version = "0.1.0"
+
+[deps]
+AdvancedHMC = "0bf59076-c3b1-5ca4-86bd-e02cd72cde3d"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+LogDensityProblems = "6fdf6af0-433a-55f7-b3ed-c6c6e0b8df7c"
+OITOOLS = "3fc04337-ac9e-422b-9e4b-9feddb92e93f"
+Pathfinder = "b1d3bc72-d0e7-4279-b92f-7fa5d6d2d454"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+
+[sources]
+OITOOLS = {url = "https://github.com/fabienbaron/OITOOLS.jl", rev = "master"}
+
+[compat]
+AdvancedHMC = "0.5, 0.6"
+LogDensityProblems = "2"
+Pathfinder = "0.8, 0.9"
+julia = "1.9"
