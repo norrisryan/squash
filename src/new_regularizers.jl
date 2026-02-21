@@ -137,7 +137,8 @@ function extended_regularization(x::Matrix{Float64}, reg_g::Matrix{Float64};
                           !(r[1] in NEW_REGULARIZER_NAMES), regularizers)
 
     if !isempty(unknown)
-        error("Unknown regularizer(s): $(join([r[1] for r in unknown], \", \"))")
+        names = join([r[1] for r in unknown], ", ")
+        error("Unknown regularizer(s): $names")
     end
 
     # Delegate OITOOLS regularizers to the OITOOLS function
