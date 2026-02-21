@@ -34,7 +34,7 @@ function laplacian(x::Matrix{Float64}, g::Matrix{Float64}; verb::Bool=false)
             circshift(lap, (0, -1)) .+ circshift(lap, (0, 1)) .- 4.0 .* lap
     g .+= 2.0 .* bilap
 
-    verb && @printf("laplacian: %.6e\n", f)
+    verb && println("laplacian: ", f)
     return f
 end
 
@@ -68,7 +68,7 @@ function good_roughness(x::Matrix{Float64}, g::Matrix{Float64};
     g .+= (2.0 .* d ./ s .- d .^ 2 ./ s .^ 2)
     g .-= circshift(2.0 .* d ./ s .+ d .^ 2 ./ s .^ 2, (1, 0))
 
-    verb && @printf("good_roughness: %.6e\n", f)
+    verb && println("good_roughness: ", f)
     return f
 end
 
@@ -108,7 +108,7 @@ function l1l2_wavelet(x::Matrix{Float64}, g::Matrix{Float64};
         g .-= circshift(gv, (stride, 0))
     end
 
-    verb && @printf("l1l2_wavelet: %.6e\n", f)
+    verb && println("l1l2_wavelet: ", f)
     return f
 end
 
