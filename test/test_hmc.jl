@@ -89,26 +89,40 @@ println("Simulated $n_uv V2 observables, SNR≈15")
 # We only populate V2 fields; all T3 and differential-vis fields are empty.
 
 data = OIdata(
-    # vis amp / phase (none)
+    # vis (empty): visamp, visamp_err, visphi, visphi_err,
+    #              vis_baseline, vis_mjd, vis_lam, vis_dlam, vis_flag
     Float64[], Float64[], Float64[], Float64[],
-    Float64[], Float64[], Float64[], Float64[], Bool[],
-    # V2: v2_obs, v2_err, v2_baseline, v2_uv_wavelength (use uv directly)
-    v2_obs, v2_err, zeros(n_uv),           # v2, v2_err, v2_baseline
-    zeros(n_uv), zeros(n_uv), 0.0,         # v2_u_lam, v2_v_lam, mean_v2_wl (filled below)
-    fill(1.65e-6, n_uv), fill(5e-8, n_uv), # v2_wavelength, v2_bandwidth
-    falses(n_uv),                           # v2_flag
-    # T3 (none)
+    Float64[], Float64[], Float64[], Float64[],
+    Bool[],
+    # V2: v2, v2_err, v2_baseline, v2_mjd, mean_mjd,
+    #     v2_lam, v2_dlam, v2_flag
+    v2_obs, v2_err, zeros(n_uv), zeros(n_uv),
+    0.0,
+    fill(1.65e-6, n_uv), fill(5e-8, n_uv),
+    fill(false, n_uv),
+    # T3 (empty): t3amp, t3amp_err, t3phi, t3phi_err,
+    #             t3phi_vonmises_err, t3phi_vonmises_chi2_offset,
+    #             t3_baseline, t3_maxbaseline, t3_mjd,
+    #             t3_lam, t3_dlam, t3_flag
+    Float64[], Float64[], Float64[], Float64[],
+    Float64[], Float64[],
     Float64[], Float64[], Float64[],
-    Float64[], Float64[], Float64[],
-    Float64[], Float64[], Float64[], Float64[], Float64[], Float64[],
+    Float64[], Float64[], Bool[],
+    # Flux (empty): flux, flux_err, flux_mjd, flux_lam, flux_dlam,
+    #               flux_flag, flux_sta_index
     Float64[], Float64[], Float64[], Float64[], Float64[], Bool[],
-    Float64[], Float64[], Float64[], Float64[], Float64[], Bool[],
-    # UV grid for NFFT
-    Int[], uv, Float64[], Float64[], Float64[], Float64[],
-    # counts: n_vis, n_vis_cal, n_v2, n_v2_cal (set n_uv), n_t3, n_t3_cal, n_uv
-    0, 0, n_uv, 0, 0, n_uv,
-    collect(1:n_uv), collect(1:n_uv), Int[], Int[], Int[],
-    String[], String[], Int[], Int[], Int[], Int[]
+    Int64[],
+    # UV: uv, uv_lam, uv_dlam, uv_mjd, uv_baseline
+    uv, Float64[], Float64[], Float64[], Float64[],
+    # counts: nflux, nvisamp, nvisphi, nv2, nt3amp, nt3phi, nuv
+    0, 0, 0, n_uv, 0, 0, n_uv,
+    # index arrays: indx_vis, indx_v2, indx_t3_1, indx_t3_2, indx_t3_3
+    Int64[], collect(1:n_uv), Int64[], Int64[], Int64[],
+    # station metadata: sta_name, tel_name, sta_index,
+    #                   vis_sta_index, v2_sta_index, t3_sta_index, filename
+    String[], String[], Int64[],
+    zeros(Int64, 2, 0), zeros(Int64, 2, n_uv), zeros(Int64, 3, 0),
+    ""
 )
 
 # ── Setup NFFT ────────────────────────────────────────────────────────────────
