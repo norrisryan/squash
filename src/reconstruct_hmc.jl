@@ -79,7 +79,7 @@ function hmc_reconstruct(
     # ── 3. Pathfinder initialization ──────────────────────────────────────────
     verb && println("Running multipathfinder ($n_pathfinder_runs runs)...")
     pf_result = multipathfinder(posterior, n_pathfinder_draws;
-                                 n_runs=n_pathfinder_runs,
+                                 nruns=n_pathfinder_runs,
                                  rng=rng)
 
     # draws is (dim, n_draws); use the first draw as starting point
