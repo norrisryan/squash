@@ -33,7 +33,7 @@ Fields
 - `ft`          : NFFT plan array returned by `setup_nfft` (or DFT matrix from `setup_dft`)
 - `nx`          : image side length (image is `nx × nx`)
 - `regularizers`: regularizer specification list, same format as OITOOLS `crit_fg`
-- `weights`     : length-3 vector `[w_vis, w_v2, w_t3]` scaling each χ² term
+- `weights`     : length-3 vector `[w_v2, w_t3amp, w_t3phi]` scaling each χ² term (matches OITOOLS `chi2_fg` convention)
 - `vonmises`    : if `true`, use von Mises distribution for closure phases
 """
 struct OIPosterior
@@ -47,6 +47,8 @@ end
 
 """
     OIPosterior(data, ft, nx; regularizers=[], weights=[1.0,1.0,1.0], vonmises=false)
+
+`weights` = `[w_v2, w_t3amp, w_t3phi]` — same order as OITOOLS `chi2_fg`.
 
 Convenience constructor.
 """
