@@ -145,7 +145,7 @@ t_start = time()
 result = hmc_reconstruct(
     x_start, data, ft;
     nx           = nx,
-    weights      = [0.0, 1.0, 0.0],   # V2 only
+    weights      = [1.0, 0.0, 0.0],   # V2 only (chi2_fg order: [w_v2, w_t3amp, w_t3phi])
     regularizers = [["laplacian", 1e-4]],
     n_samples    = n_samples,
     n_adapts     = n_adapts,

@@ -23,7 +23,7 @@ Run HMC-based posterior sampling for optical interferometric image reconstructio
 
 # Keyword arguments
 - `nx::Int`                 : image side length (default: `size(x_start, 1)`)
-- `weights`                 : `[w_vis, w_v2, w_t3]` chi² weights (default: `[1,1,1]`)
+- `weights`                 : `[w_v2, w_t3amp, w_t3phi]` chi² weights (default: `[1,1,1]`); matches OITOOLS `chi2_fg` convention
 - `regularizers`            : regularizer list (same format as `crit_fg`)
 - `vonmises::Bool`          : use von Mises likelihood for closure phases (default: `false`)
 - `n_samples::Int`          : number of HMC samples to draw (default: `1000`)

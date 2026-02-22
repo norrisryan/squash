@@ -171,7 +171,7 @@ Random.seed!(42)
 
             ft_test = setup_nfft(data_test, nx_test, pixsize)
             posterior_test = OIPosterior(data_test, ft_test, nx_test;
-                                         regularizers=[["laplacian", 1e-3]], weights=[0.0, 1.0, 0.0])
+                                         regularizers=[["laplacian", 1e-3]], weights=[1.0, 0.0, 0.0])
 
             y_test = log.(vec(x_true) .+ 1e-20)
             lp, g = LogDensityProblems.logdensity_and_gradient(posterior_test, y_test)
