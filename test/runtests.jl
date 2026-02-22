@@ -1,4 +1,5 @@
 using OIImage
+using LogDensityProblems
 using Test
 using LinearAlgebra
 using Statistics
