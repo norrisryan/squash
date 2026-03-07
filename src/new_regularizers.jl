@@ -163,7 +163,7 @@ function extended_regularization(x::Matrix{Float64}, reg_g::Matrix{Float64};
             f += rweight * l1l2_wavelet(x, g_tmp; verb=verb, ϵ=ε, nscales=ns)
         end
 
-        reg_g .+= g_tmp
+        reg_g .+= rweight .* g_tmp
     end
 
     return f

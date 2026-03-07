@@ -70,11 +70,14 @@ LogDensityProblems.capabilities(::Type{OIPosterior}) =
 Evaluate log p(y) = -(χ² + reg) without computing the gradient.
 """
 function LogDensityProblems.logdensity(p::OIPosterior, y::AbstractVector{<:Real})
-    x = reshape(exp.(y), p.nx, p.nx)
-    g = zeros(p.nx, p.nx)
-    chi2 = chi2_fg(x, g, p.ft, p.data;
-                   weights=p.weights, verb=false, vonmises=p.vonmises)
-    fill!(g, 0.0)
+    # Stable softmax: shift by max(y) so exp values stay in (0,1], preventing overflow.
+    # softmax(y) == softmax(y - c) for any constant c, so this is exact.
+    y_shift = maximum(y)
+    x_unnorm = reshape(exp.(y .- y_shift), p.nx, p.nx)
+    x = x_unnorm ./ sum(x_unnorm)
+    chi2 = chi2_f(x, p.ft, p.data;
+                  weights=p.weights, verb=false, vonmises=p.vonmises)
+    g = zeros(p.nx, p.nx)   # only needed for extended_regularization (no value-only variant)
     reg  = extended_regularization(x, g; regularizers=p.regularizers, verb=false)
     return -(chi2 + reg)
 end
@@ -88,7 +91,9 @@ Returns `(log_posterior, gradient_wrt_y)` where both are `Float64` / `Vector{Flo
 """
 function LogDensityProblems.logdensity_and_gradient(p::OIPosterior,
                                                      y::AbstractVector{<:Real})
-    x_unnorm = reshape(exp.(y), p.nx, p.nx)
+    # Stable softmax: shift by max(y) so exp values stay in (0,1], preventing overflow.
+    y_shift = maximum(y)
+    x_unnorm = reshape(exp.(y .- y_shift), p.nx, p.nx)
     flux = sum(x_unnorm)
     x = x_unnorm ./ flux          # normalized image passed to chi2_fg
 

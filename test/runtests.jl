@@ -166,6 +166,10 @@ Random.seed!(42)
                 #                   vis_sta_index, v2_sta_index, t3_sta_index, filename
                 String[], String[], Int64[],
                 zeros(Int64, 2, 0), zeros(Int64, 2, n_uv), zeros(Int64, 3, 0),
+                # correlation matrices (empty)
+                spzeros_empty(), Int64[], spzeros_empty(), Int64[],
+                spzeros_empty(), Int64[], spzeros_empty(), Int64[],
+                spzeros_empty(), Int64[], spzeros_empty(), Int64[],
                 ""
             )
 
@@ -193,3 +197,12 @@ Random.seed!(42)
     end
 
 end
+
+# ── SA initialization smoke test ──────────────────────────────────────────────
+include("test_sa.jl")
+
+# ── MAP reconstruct + compare_regularizers integration test ───────────────────
+include("test_map.jl")
+
+# ── Binary-star HMC integration test ──────────────────────────────────────────
+include("test_hmc.jl")
